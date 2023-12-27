@@ -26,12 +26,12 @@ require_once __DIR__ . '/vendor/autoload.php';
 
     if (isset($data['option'])) {
         if ($data['option'] == 'Sync') {
-            if (! $user || $user->isClient || ! $user->hasViewPermission(PermissionNames::CLIENTS_SERVICES)) {
+            if (!$user || $user->isClient || !$user->hasViewPermission(PermissionNames::CLIENTS_SERVICES)) {
                 \MikrotikQueueSync\Http::forbidden();
             }
             (new Synchronizer())->sync();
         } elseif ($data['option'] == 'reset-log') {
-            if (! $user || $user->isClient || ! $user->hasViewPermission(PermissionNames::CLIENTS_SERVICES)) {
+            if (!$user || $user->isClient || !$user->hasViewPermission(PermissionNames::CLIENTS_SERVICES)) {
                 \MikrotikQueueSync\Http::forbidden();
             }
             $logger = PluginLogManager::create();
@@ -41,7 +41,7 @@ require_once __DIR__ . '/vendor/autoload.php';
             (new Synchronizer())->sync();
         }
     } else {
-        if (! $user || $user->isClient || ! $user->hasViewPermission(PermissionNames::CLIENTS_SERVICES)) {
+        if (!$user || $user->isClient || !$user->hasViewPermission(PermissionNames::CLIENTS_SERVICES)) {
             \MikrotikQueueSync\Http::forbidden();
         }
         (new Synchronizer())->sync();

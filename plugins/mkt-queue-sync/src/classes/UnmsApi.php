@@ -38,12 +38,12 @@ class UnmsApi
         $options = (new UcrmOptionsManager())->loadOptions();
 
         $unmsUrl = ($options->unmsLocalUrl ?: $options->ucrmPublicUrl) ?? '';
-        if (! $unmsUrl) {
+        if (!$unmsUrl) {
             throw new ConfigurationException('UCRM URL is missing in plugin configuration.');
         }
 
         $config = (new PluginConfigManager())->loadConfig();
-        if (! ($config['unmsApiToken'] ?? false)) {
+        if (!($config['unmsApiToken'] ?? false)) {
             $logger->appendLog('UNMS API token is missing in plugin configuration.');
             throw new ConfigurationException('UNMS API token is missing in plugin configuration.');
         }
@@ -56,7 +56,7 @@ class UnmsApi
                 // If the URL is localhost over HTTPS, do not verify SSL certificate.
                 'verify' => $options->unmsLocalUrl !== null
                     ? false
-                    : ! Helpers::isUrlSecureLocalhost($unmsApiUrl),
+                    : !Helpers::isUrlSecureLocalhost($unmsApiUrl),
             ]
         );
 

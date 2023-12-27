@@ -1,5 +1,5 @@
 {
-  "description": "UCRM plugin for sync service data rate with Mikrotik Simple Queue",
+  "description": "UCRM plugin for syncronising service bandwidth limits with MikroTik simple queues.",
   "license": "MIT",
   "autoload": {
     "psr-4": {

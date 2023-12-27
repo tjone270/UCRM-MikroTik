@@ -76,7 +76,7 @@ class RouterOsApi
     public function remove(int $deviceNum, string $endpoint, array $ids): array
     {
         //$deviceNum = 1;
-        if (! $ids) {
+        if (!$ids) {
             return [];
         }
 
