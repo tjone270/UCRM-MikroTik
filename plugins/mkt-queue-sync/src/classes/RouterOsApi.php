@@ -8,6 +8,7 @@ namespace MikrotikQueueSync;
 use RouterOS\Client;
 use RouterOS\Exceptions\ClientException;
 use RouterOS\Exceptions\ConfigException;
+use RouterOS\Interfaces\ClientInterface;
 use RouterOS\Query;
 use Ubnt\UcrmPluginSdk\Service\PluginConfigManager;
 
@@ -51,7 +52,7 @@ class RouterOsApi
                         "port" => (int) $config["apiport"],
                     ]
                 );
-            } catch (Exception | ConfigException | ClientException $e) {
+            } catch (\Exception | ConfigException | ClientException $e) {
                 echo "<br>Error while connecting to the MikroTik at " . $mktIp . "<br>";
                 echo $e->getMessage();
                 $logger->appendLog("Error while connecting to the MikroTik at " . $mktIp . ".");
@@ -61,16 +62,16 @@ class RouterOsApi
 
         return new self($client);
     }
-
-    public function wr(int $deviceNum, string $endpoint, $attrs = null): array
+    
+    public function wr(int $deviceNum, string $endpoint, $attrs = null): ClientInterface
     {
-        is_null($attrs) ? $response = $this->getClient($deviceNum)->wr([$endpoint]) : $response = $this->getClient($deviceNum)->wr([$endpoint, $attrs]);
+        is_null($attrs) ? $response = $this->getClient($deviceNum)->query([$endpoint]) : $response = $this->getClient($deviceNum)->query([$endpoint, $attrs]);
         return $response;
     }
 
     public function print(int $deviceNum, string $endpoint): array
     {
-        return $this->getClient($deviceNum)->write(new Query(sprintf("%s/print", $endpoint)))->read();
+        return $this->getClient($deviceNum)->query(new Query(sprintf("%s/print", $endpoint)))->read();
     }
 
     public function remove(int $deviceNum, string $endpoint, array $ids): array
@@ -83,7 +84,7 @@ class RouterOsApi
         $query = new Query(sprintf("%s/remove", $endpoint));
         foreach ($ids as $id) {
             $query->add(sprintf("=.id=%s", $id));
-            $result = $this->getClient($deviceNum)->write($query)->read();
+            $result = $this->getClient($deviceNum)->query($query)->read();
         }
         //var_dump($query);
         return $result;
@@ -101,7 +102,7 @@ class RouterOsApi
                 $query->add(sprintf("=%s=%s", $key, $item));
             }
 
-            $this->getClient($deviceNum)->write($query)->read();
+            $this->getClient($deviceNum)->query($query)->read();
         }
     }
 
@@ -124,7 +125,7 @@ class RouterOsApi
                 $query->add(sprintf("=%s=%s", $key, $item));
             }
 
-            $this->getClient($deviceNum)->write($query)->read();
+            $this->getClient($deviceNum)->query($query)->read();
         }
     }
 
@@ -139,7 +140,7 @@ class RouterOsApi
                 $query->add(sprintf("=%s=%s", $key, $item));
             }
 
-            $this->getClient($deviceNum)->write($query)->read();
+            $this->getClient($deviceNum)->query($query)->read();
         }
     }
 

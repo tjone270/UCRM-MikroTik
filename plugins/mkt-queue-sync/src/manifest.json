@@ -3,9 +3,9 @@
   "information": {
     "name": "mkt-queue-sync",
     "displayName": "Mikrotik Queue Sync Plugin",
-    "description": "Synchronises UCRM services with a MikroTik simple queue https://wiki.mikrotik.com/wiki/Manual:Queue",
+    "description": "Synchronises UCRM services with a MikroTik simple queue (https://wiki.mikrotik.com/wiki/Manual:Queue)",
     "url": "https://github.com/tjone270/UCRM-Mikrotik/tree/master/plugins/mkt-queue-sync",
-    "version": "2.5.0",
+    "version": "2.5.2",
     "ucrmVersionCompliancy": {
       "min": "2.15.0-beta3",
       "max": null
@@ -44,19 +44,19 @@
     {
       "key": "burstLimitPercentage",
       "label": "Burst Limit Percentage",
-      "description": "Burst Limit Percentage calculated over the service's max-limit, in U/D format (upload/download speeds in Mbps.) If not used, enter 0 here",
+      "description": "Burst Limit Percentage calculated over the service's max-limit, in U/D format (upload/download speeds in Mbps.) If not used, enter 0/0 here",
       "required": 1
     },
     {
       "key": "burstTime",
       "label": "Burst Time",
-      "description": "Burst Time (if not used, enter 1 here)",
+      "description": "Burst Time (if not used, enter 1/1 here)",
       "required": 1
     },
     {
       "key": "limitAtPercentage",
       "label": "Limit At %",
-      "description": "Limit at percentage calculated over the max limit. Use values 1-99.",
+      "description": "Limit at percentage calculated over the max limit. Use values 1-99. (if not used, enter 5/5 here)",
       "required": 1
     },
     {
