@@ -1,2 +1,3 @@
 .php_cs.cache
 vendor
+plugins/mkt-queue-sync/mikrotik-queue-sync.zip
