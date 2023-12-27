@@ -27,37 +27,35 @@ class RouterOsApi
     {
         $countConstruct = 0;
         foreach ($clients as $client) {
-            //echo '<pre>'; var_dump($client); echo '</pre>';
+            //echo "<pre>"; var_dump($client); echo "</pre>";
             $this->client[$countConstruct] = $client;
             $countConstruct++;
         }
 
         foreach ($this->client as $test) {
-            //	echo '<pre>'; var_dump($test); echo '</pre>';
+            //	echo "<pre>"; var_dump($test); echo "</pre>";
         }
     }
 
     public static function create($logger, ?int $devQty): self
     {
         $config = (new PluginConfigManager())->loadConfig();
-        isset($config['apiport']) ? [] : $config['apiport'] = (int) 8728;
-        foreach (explode(',', $config['mktip']) as $mktIp) {
+        isset($config["apiport"]) ? [] : $config["apiport"] = (int) 8728;
+        foreach (explode(",", $config["mktip"]) as $mktIp) {
             try {
                 $client[$devQty] = new Client(
                     [
-                        'host' => $mktIp,
-                        'user' => $config['mktusr'],
-                        'pass' => (string) $config['mktpass'],
-                        'port' => (int) $config['apiport'],
+                        "host" => $mktIp,
+                        "user" => $config["mktusr"],
+                        "pass" => (string) $config["mktpass"],
+                        "port" => (int) $config["apiport"],
                     ]
                 );
             } catch (Exception | ConfigException | ClientException $e) {
-                echo '<br> ERROR EN LA CONEXION A MIKROTIK IP: ' . $mktIp . '<br>';
+                echo "<br>Error while connecting to the MikroTik at " . $mktIp . "<br>";
                 echo $e->getMessage();
-                //echo "<br> EL PROGRAMA NO CONTINUARA <br>";
-                $logger->appendLog('ERROR EN LA CONEXION A MIKROTIK IP: ' . $mktIp);
+                $logger->appendLog("Error while connecting to the MikroTik at " . $mktIp . ".");
                 $logger->appendLog($e->getMessage());
-                //$logger->appendLog("EL PROGRAMA NO CONTINUARA!!!");
             }
         }
 
@@ -72,8 +70,7 @@ class RouterOsApi
 
     public function print(int $deviceNum, string $endpoint): array
     {
-        //$deviceNum = 0;
-        return $this->getClient($deviceNum)->write(new Query(sprintf('%s/print', $endpoint)))->read();
+        return $this->getClient($deviceNum)->write(new Query(sprintf("%s/print", $endpoint)))->read();
     }
 
     public function remove(int $deviceNum, string $endpoint, array $ids): array
@@ -83,9 +80,9 @@ class RouterOsApi
             return [];
         }
 
-        $query = new Query(sprintf('%s/remove', $endpoint));
+        $query = new Query(sprintf("%s/remove", $endpoint));
         foreach ($ids as $id) {
-            $query->add(sprintf('=.id=%s', $id));
+            $query->add(sprintf("=.id=%s", $id));
             $result = $this->getClient($deviceNum)->write($query)->read();
         }
         //var_dump($query);
@@ -98,17 +95,17 @@ class RouterOsApi
         foreach ($sentences as $sentence) {
             $sentence = array_filter($sentence);
 
-            $query = new Query(sprintf('%s/add', $endpoint));
-            $orders = '';
+            $query = new Query(sprintf("%s/add", $endpoint));
+            $orders = "";
             foreach ($sentence as $key => $item) {
-                $query->add(sprintf('=%s=%s', $key, $item));
+                $query->add(sprintf("=%s=%s", $key, $item));
             }
 
             $this->getClient($deviceNum)->write($query)->read();
         }
     }
 
-    public function addAddressList(int $deviceNum, string $endpoint, array $sentences, string $commentPrefix = 'ucrm_mktsync_'): void
+    public function addAddressList(int $deviceNum, string $endpoint, array $sentences, string $commentPrefix = "ucrm_mktsync_"): void
     {
         //$deviceNum = 1;
         foreach ($sentences as $sentence) {
@@ -116,15 +113,15 @@ class RouterOsApi
 
             if (
                 $commentPrefix
-                && $sentence['comment'] ?? false
+                && $sentence["comment"] ?? false
             ) {
-                $sentence['comment'] = sprintf('%s%s', $commentPrefix, $sentence['comment']);
+                $sentence["comment"] = sprintf("%s%s", $commentPrefix, $sentence["comment"]);
             }
 
-            $query = new Query(sprintf('%s/add', $endpoint));
+            $query = new Query(sprintf("%s/add", $endpoint));
 
             foreach ($sentence as $key => $item) {
-                $query->add(sprintf('=%s=%s', $key, $item));
+                $query->add(sprintf("=%s=%s", $key, $item));
             }
 
             $this->getClient($deviceNum)->write($query)->read();
@@ -135,11 +132,11 @@ class RouterOsApi
     {
         //$deviceNum = 1;
         foreach ($sentences as $sentence) {
-            $query = new Query(sprintf('%s/set', $endpoint));
+            $query = new Query(sprintf("%s/set", $endpoint));
             $sentence = array_filter($sentence);
 
             foreach ($sentence as $key => $item) {
-                $query->add(sprintf('=%s=%s', $key, $item));
+                $query->add(sprintf("=%s=%s", $key, $item));
             }
 
             $this->getClient($deviceNum)->write($query)->read();

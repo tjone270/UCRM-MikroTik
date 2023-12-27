@@ -3,102 +3,102 @@
   "information": {
     "name": "mkt-queue-sync",
     "displayName": "Mikrotik Queue Sync Plugin",
-    "description": "Plugin para sincronizar simple queues con los limites de velocidad establecidos en Ucrm - Very basic plugin based on a Ubiquiti plugin, to synchronize Ucrm Services with Miktotik Simple Queue https://wiki.mikrotik.com/wiki/Manual:Queue",
-    "url": "https://github.com/Ubiquiti-App/UCRM-plugins/tree/master/plugins/mkt-queue-sync",
-    "version": "2.4.0",
+    "description": "Synchronises UCRM services with a MikroTik simple queue https://wiki.mikrotik.com/wiki/Manual:Queue",
+    "url": "https://github.com/tjone270/UCRM-Mikrotik/tree/master/plugins/mkt-queue-sync",
+    "version": "2.5.0",
     "ucrmVersionCompliancy": {
       "min": "2.15.0-beta3",
       "max": null
     },
-	"unmsVersionCompliancy": {
+    "unmsVersionCompliancy": {
       "min": "2.1.0",
       "max": null
     },
-    "author": "Franco Johan Gampel - franco@gampel.com.ar"
+    "author": "Franco Johan Gampel - franco@gampel.com.ar, Thomas Jones - me@thomasjones.id.au"
   },
   "configuration": [
     {
       "key": "mktip",
-      "label": "Mikrotik IP Address",
-      "description": "Direccion IP de Mikrotik",
+      "label": "MikroTik: IP address",
+      "description": "The IP address of the MikroTik",
       "required": 1
     },
-	{
+    {
       "key": "apiport",
-      "label": "Mikrotik API PORT",
-      "description": "Mikrotik API PORT, leave blank if using default",
+      "label": "MikroTik: API port",
+      "description": "The port the RouterOS standard API service is presently on (leave blank to use default 8728)",
       "required": 0
     },
     {
       "key": "mktusr",
-      "label": "Mikrotik Username",
-      "description": "Nombre de Usuario de Mikrotik",
+      "label": "MikroTik: Username",
+      "description": "The service account username for the MikroTik",
       "required": 1
     },
     {
       "key": "mktpass",
-      "label": "Mikrotik Password",
-      "description": "Password de Mikrotik",
+      "label": "MikroTik: Password",
+      "description": "The service account password for the MikroTik",
       "required": 1
     },
-	{
+    {
       "key": "burstLimitPercentage",
       "label": "Burst Limit Percentage",
-      "description": "Burst Limit Percentage calculated over service Max-Limit / Porcentaje de limite de rafaga calculado sobre el limite maximo del servicio | (If not used configure 0/Si no se utiliza configurar en 0) / Formato de Carga UU/DD (U=Upload D=Download)",
+      "description": "Burst Limit Percentage calculated over the service's max-limit, in U/D format (upload/download speeds in Mbps.) If not used, enter 0 here",
       "required": 1
     },
-	{
+    {
       "key": "burstTime",
       "label": "Burst Time",
-      "description": "Burst Time/Tiempo de Rafaga (If not used configure 1/Si no se utiliza configurar en 1) / Formato de Carga UU/DD (U=Upload D=Download)",
+      "description": "Burst Time (if not used, enter 1 here)",
       "required": 1
     },
-	{
+    {
       "key": "limitAtPercentage",
       "label": "Limit At %",
-      "description": "Limit at percentage calculated over the max limit Values 1-99 | Porcentaje de Limit At calculado sobre el max-limit valores 1-99 / Formato de Carga UU/DD (U=Upload D=Download)",
+      "description": "Limit at percentage calculated over the max limit. Use values 1-99.",
       "required": 1
     },
-	{
+    {
       "key": "addQueue",
-      "label": "Add Queue?",
-      "description": "Add queue simple in case it does not exist?",
+      "label": "Add a Queue",
+      "description": "Add a simple queue in the event it's not present on the device?",
       "required": 0,
-	  "type": "checkbox"
+      "type": "checkbox"
     },
-	{
+    {
       "key": "unmsApiToken",
-      "label": "UNMS API token",
-      "description": "API token created for this plugin in Network section of UNMS only needed when using UNMS v1 | Token API creado para este plugin en la seccion Network de UNMS, solo necesario cuando se utiliza UNMS v1",
-      "required": 0,
+      "label": "UISP: API token",
+      "description": "API token created for this plugin in the UISP network application (under Users)",
+      "required": 1,
       "type": "text"
     },
-	{
+    {
       "key": "debugMode",
-      "label": "Debug Mode?",
-      "description": "More detailed log info - Informacion de log mas detallada",
+      "label": "Debug Mode",
+      "description": "Provides additional verbosity in logging.",
       "required": 0,
-	  "type": "checkbox"
+      "type": "checkbox"
     }
   ],
-	"menu": [
-        {
-		"key": "MikrotikSync",
-        "label": "Sync",
-        "type": "admin",
-        "target": "iframe",
-		"parameters": {
-		"option": "Sync"
-		}
-        },
-		{
-		"key": "MikrotikSync",
-        "label": "Reset Plugin Log",
-        "type": "admin",
-        "target": "iframe",
-		"parameters": {
-		"option": "reset-log"
-		}
-        }
-    ]  
+  "menu": [
+    {
+      "key": "MikrotikSync",
+      "label": "Sync",
+      "type": "admin",
+      "target": "iframe",
+      "parameters": {
+        "option": "Sync"
+      }
+    },
+    {
+      "key": "MikrotikSync",
+      "label": "Reset Plugin Log",
+      "type": "admin",
+      "target": "iframe",
+      "parameters": {
+        "option": "reset-log"
+      }
+    }
+  ]
 }

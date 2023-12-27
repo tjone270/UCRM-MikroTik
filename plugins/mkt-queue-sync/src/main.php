@@ -10,4 +10,4 @@ require_once __DIR__ . '/vendor/autoload.php';
     // Ensure that user is logged in and has permission to view invoices.
     (new Synchronizer())->sync();
 })();
-http_response_code(200); //Response OK when it's called by a webhook.
+http_response_code(200); // Response OK when it's called by a webhook.
